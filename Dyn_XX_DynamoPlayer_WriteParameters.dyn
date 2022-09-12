@@ -323,38 +323,6 @@
       "Description": "Creates a string."
     },
     {
-      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
-      "NodeType": "PythonScriptNode",
-      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport clr\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nclr.AddReference(\"RevitAPI\")\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n\r\n# Place your code below this line\r\nworksets = FilteredWorksetCollector(doc).OfKind(WorksetKind.UserWorkset).ToWorksets()\r\n\r\nnames = [w.Name for w in worksets]\r\n\r\nids = [w.Id for w in worksets]\r\n\r\n# Assign your output to the OUT variable.\r\nOUT = [worksets, names, ids]",
-      "Engine": "CPython3",
-      "VariableInputPorts": true,
-      "Id": "9d9ed392cf474e74bbb01cbfff990649",
-      "Inputs": [
-        {
-          "Id": "0e5f2dda501a49f9bbcadac1d6d7712d",
-          "Name": "IN[0]",
-          "Description": "Input #0",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "da05f78e35854451b62df41ec880f7aa",
-          "Name": "OUT",
-          "Description": "Result of the python script",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Runs an embedded Python script."
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
       "FunctionSignature": "DesignScript.Builtin.Dictionary.ByKeysValues@string[],var[]..[]",
@@ -431,35 +399,6 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
-    },
-    {
-      "ConcreteType": "CoreNodeModels.FromObject, CoreNodeModels",
-      "NodeType": "ExtensionNode",
-      "Id": "0f688a9c95f24b01b95aa9b5b193ae61",
-      "Inputs": [
-        {
-          "Id": "d05b946b5dcd4cfb9855841e71b39ecd",
-          "Name": "object",
-          "Description": "Object to be serialized",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "2305cfe65255412884e9f7d475506f46",
-          "Name": "string",
-          "Description": "String representation of the object",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Convert an object to a string representation."
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -968,6 +907,67 @@
       ],
       "Replication": "Auto",
       "Description": "Set one of the element's parameters.\n\nElement.SetParameterByName (parameterName: string, value: var): Element"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.FromObject, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "0f688a9c95f24b01b95aa9b5b193ae61",
+      "Inputs": [
+        {
+          "Id": "6bea4f917e31489aa1a54f7d10dfd7b3",
+          "Name": "object",
+          "Description": "Object to be serialized",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6cc452da514b4a109159376abe62c5ae",
+          "Name": "string",
+          "Description": "String representation of the object",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Convert an object to a string representation."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport clr\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nclr.AddReference(\"RevitAPI\")\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n\r\n# Place your code below this line\r\nworksets = FilteredWorksetCollector(doc).OfKind(WorksetKind.UserWorkset).ToWorksets()\r\n\r\nnames = [w.Name for w in worksets]\r\n\r\nids = [w.Id.IntegerValue for w in worksets]\r\n\r\n# Assign your output to the OUT variable.\r\nOUT = [worksets, names, ids]",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "b68cc6c5c71a42a38e742c90d3d94e67",
+      "Inputs": [
+        {
+          "Id": "623899883f7f49e2afb80bf52e5b4435",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1497732c56834fdea57facc08a698929",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
     }
   ],
   "Connectors": [
@@ -1022,11 +1022,6 @@
       "Id": "946e162f976e4574915656212c36229d"
     },
     {
-      "Start": "da05f78e35854451b62df41ec880f7aa",
-      "End": "d05b946b5dcd4cfb9855841e71b39ecd",
-      "Id": "e6ee30c76b244931a7292baded203c7b"
-    },
-    {
       "Start": "f137bddd3e994c4aaa06441c3eb731fe",
       "End": "02a7624763974e0cb87b4e3e3246f973",
       "Id": "4a2eb4e27f134dbe83fa74d4e61a9fff"
@@ -1040,11 +1035,6 @@
       "Start": "8f9c00144d7448498e6cff567e339492",
       "End": "589efd4e103d40cf96e5c9f969715d7d",
       "Id": "718b65d995814035b5938f7c6be33ae3"
-    },
-    {
-      "Start": "2305cfe65255412884e9f7d475506f46",
-      "End": "2fd06d2e1bb84cd08f9b4381148fdf6c",
-      "Id": "17b27330a4fa44388da82711afb8549f"
     },
     {
       "Start": "7469d3ac67dd4e9c87cc922a1ee5ccdd",
@@ -1120,6 +1110,16 @@
       "Start": "6b03880d8dbe466a844d5f859446bd4c",
       "End": "e607ab05e8794732ba9e2588e88f0fae",
       "Id": "f8ba76d479dc4202a5463cd31eb8594a"
+    },
+    {
+      "Start": "6cc452da514b4a109159376abe62c5ae",
+      "End": "2fd06d2e1bb84cd08f9b4381148fdf6c",
+      "Id": "34e3c083ae9f4184ad564f33a293b1cf"
+    },
+    {
+      "Start": "1497732c56834fdea57facc08a698929",
+      "End": "6bea4f917e31489aa1a54f7d10dfd7b3",
+      "Id": "f58a322820624064a793ae6017822dd8"
     }
   ],
   "Dependencies": [],
@@ -1242,16 +1242,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "Python Script",
-        "Id": "9d9ed392cf474e74bbb01cbfff990649",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 150.62539145199617,
-        "Y": -2408.8824483082221
-      },
-      {
-        "ShowGeometry": true,
         "Name": "Dictionary.ByKeysValues",
         "Id": "b72585947e0844caaae3d8929e1fb50d",
         "IsSetAsInput": false,
@@ -1269,16 +1259,6 @@
         "Excluded": false,
         "X": 516.54067533730438,
         "Y": -2405.248602592731
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "String from Object",
-        "Id": "0f688a9c95f24b01b95aa9b5b193ae61",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 331.54475646382525,
-        "Y": -2408.7916145387271
       },
       {
         "ShowGeometry": true,
@@ -1429,6 +1409,26 @@
         "Excluded": false,
         "X": 2160.088873963176,
         "Y": -4067.7840288368066
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String from Object",
+        "Id": "0f688a9c95f24b01b95aa9b5b193ae61",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 303.87484222610078,
+        "Y": -2416.1160036016577
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "b68cc6c5c71a42a38e742c90d3d94e67",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 92.038028308176763,
+        "Y": -2414.8136307906311
       }
     ],
     "Annotations": [
@@ -1601,7 +1601,7 @@
         "Left": 1379.0686395083717,
         "Top": -3190.1960290105653,
         "Width": 754.0,
-        "Height": 225.0,
+        "Height": 208.0,
         "FontSize": 36.0,
         "InitialTop": -3137.1960290105653,
         "InitialHeight": 145.0,
@@ -1641,22 +1641,6 @@
         "Background": "#FFFFB8D8"
       },
       {
-        "Id": "4a409b2407a84998bfda72660e5d1d8e",
-        "Title": "Worksets Collector",
-        "Nodes": [
-          "9d9ed392cf474e74bbb01cbfff990649"
-        ],
-        "Left": 140.62539145199617,
-        "Top": -2504.8824483082221,
-        "Width": 152.09,
-        "Height": 200.0,
-        "FontSize": 36.0,
-        "InitialTop": -2408.8824483082221,
-        "InitialHeight": 145.0,
-        "TextblockHeight": 86.0,
-        "Background": "#FFBB87C6"
-      },
-      {
         "Id": "c23d1d3cdf4648bd87c2e3cf840230be",
         "Title": "<Click here to edit the group title>",
         "Nodes": [
@@ -1671,7 +1655,7 @@
         "Height": 177.4218723171266,
         "FontSize": 36.0,
         "InitialTop": -4115.15699301975,
-        "InitialHeight": 154.4218723171266,
+        "InitialHeight": 176.4218723171266,
         "TextblockHeight": 43.0,
         "Background": "#FFB9F9E1"
       },
@@ -1690,7 +1674,7 @@
         "Height": 442.78307054453444,
         "FontSize": 36.0,
         "InitialTop": -4139.2435336915423,
-        "InitialHeight": 321.79717886775416,
+        "InitialHeight": 441.78307054453444,
         "TextblockHeight": 43.0,
         "Background": "#FFB9F9E1"
       },
@@ -1707,9 +1691,25 @@
         "Height": 435.96753312328792,
         "FontSize": 36.0,
         "InitialTop": -4262.7515619600945,
-        "InitialHeight": 369.96753312328792,
+        "InitialHeight": 339.96753312328792,
         "TextblockHeight": 86.0,
         "Background": "#FFB9F9E1"
+      },
+      {
+        "Id": "bfc408de25d6419bb9ca960b798d4afa",
+        "Title": "Worksets Collector",
+        "Nodes": [
+          "b68cc6c5c71a42a38e742c90d3d94e67"
+        ],
+        "Left": 82.038028308176763,
+        "Top": -2510.8136307906311,
+        "Width": 152.09,
+        "Height": 200.0,
+        "FontSize": 36.0,
+        "InitialTop": -2414.8136307906311,
+        "InitialHeight": 134.0,
+        "TextblockHeight": 86.0,
+        "Background": "#FFBB87C6"
       },
       {
         "Id": "beeb0a5e585e4845bb5eee541ca7741f",
@@ -1796,8 +1796,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": 257.63743852202094,
-    "Y": 1069.44331928467,
-    "Zoom": 0.21764394336267728
+    "X": 223.09428401796674,
+    "Y": 1791.2306208492655,
+    "Zoom": 0.61701775500804978
   }
 }
