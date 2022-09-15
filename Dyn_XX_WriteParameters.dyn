@@ -157,38 +157,6 @@
       "Description": "Creates a string."
     },
     {
-      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
-      "NodeType": "PythonScriptNode",
-      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport clr\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nclr.AddReference(\"RevitAPI\")\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n\r\n# Place your code below this line\r\nworksets = FilteredWorksetCollector(doc).OfKind(WorksetKind.UserWorkset).ToWorksets()\r\n\r\nnames = [w.Name for w in worksets]\r\n\r\nids = [w.Id.IntegerValue for w in worksets]\r\n\r\n# Assign your output to the OUT variable.\r\nOUT = [worksets, names, ids]",
-      "Engine": "CPython3",
-      "VariableInputPorts": true,
-      "Id": "9d9ed392cf474e74bbb01cbfff990649",
-      "Inputs": [
-        {
-          "Id": "0e5f2dda501a49f9bbcadac1d6d7712d",
-          "Name": "IN[0]",
-          "Description": "Input #0",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "da05f78e35854451b62df41ec880f7aa",
-          "Name": "OUT",
-          "Description": "Result of the python script",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Runs an embedded Python script."
-    },
-    {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
       "FunctionSignature": "DesignScript.Builtin.Dictionary.ByKeysValues@string[],var[]..[]",
@@ -490,6 +458,38 @@
       ],
       "Replication": "Disabled",
       "Description": "Visualize the node's output"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Load the Python Standard and DesignScript Libraries\r\nimport clr\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nclr.AddReference(\"RevitAPI\")\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n\r\n# Place your code below this line\r\nworksets = FilteredWorksetCollector(doc).OfKind(WorksetKind.UserWorkset).ToWorksets()\r\n\r\nnames = [w.Name for w in worksets]\r\n\r\nids = [w.Id.IntegerValue for w in worksets]\r\n\r\n# Assign your output to the OUT variable.\r\nOUT = [worksets, names, ids]",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "41a1b248a40a4d8caa1ff1cb4395a87c",
+      "Inputs": [
+        {
+          "Id": "f9f706ae410c495e872a043330a7e44f",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "bc42ea80cef54bcfb8bed71e52bc05d7",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded Python script."
     }
   ],
   "Connectors": [
@@ -502,11 +502,6 @@
       "Start": "3b962ba1de4d4c3f8b32359c7ce9849d",
       "End": "95146cf91b014493a1fff86703ab24ca",
       "Id": "cc850651c3e04c1b95c1b0a1d7985bc0"
-    },
-    {
-      "Start": "da05f78e35854451b62df41ec880f7aa",
-      "End": "2fd06d2e1bb84cd08f9b4381148fdf6c",
-      "Id": "0f207ae84718444b8ad520851897ce4a"
     },
     {
       "Start": "f137bddd3e994c4aaa06441c3eb731fe",
@@ -557,6 +552,11 @@
       "Start": "75a16a8416dc4bd0b6abb5b7a0e3fac3",
       "End": "9aa547e1a98d423e909a4b3316d3dc36",
       "Id": "5f753ec5499048a3991e91408fc009c4"
+    },
+    {
+      "Start": "bc42ea80cef54bcfb8bed71e52bc05d7",
+      "End": "2fd06d2e1bb84cd08f9b4381148fdf6c",
+      "Id": "fc706039ed2a4cf7a0b3e1cb17d5a6f6"
     }
   ],
   "Dependencies": [],
@@ -590,7 +590,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.12.0.5650",
+      "Version": "2.12.1.8246",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -608,134 +608,134 @@
     },
     "NodeViews": [
       {
-        "ShowGeometry": true,
-        "Name": "Input Categories to Select. Use a comma \",\" to input multiple values",
         "Id": "b2bb3d77c8f94269bfe553aa24c2b558",
         "IsSetAsInput": true,
         "IsSetAsOutput": false,
+        "Name": "Input Categories to Select. Use a comma \",\" to input multiple values",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": -948.50082074158149,
         "Y": -3316.542882739031
       },
       {
-        "ShowGeometry": true,
-        "Name": "Watch",
         "Id": "eef7c4424e104f2aa47208bc5ec22631",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Watch",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": 316.49357604772797,
         "Y": -3645.2175303669983
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "42e6c4a6690245fca5943ed318b0a42d",
         "IsSetAsInput": true,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": -916.13146636466877,
         "Y": -2950.412924164385
       },
       {
-        "ShowGeometry": true,
-        "Name": "Python Script",
-        "Id": "9d9ed392cf474e74bbb01cbfff990649",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 150.62539145199617,
-        "Y": -2408.8824483082221
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Dictionary.ByKeysValues",
         "Id": "b72585947e0844caaae3d8929e1fb50d",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Dictionary.ByKeysValues",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": 766.44522851073043,
         "Y": -2419.0251930514964
       },
       {
-        "ShowGeometry": true,
-        "Name": "Code Block",
         "Id": "5199c77879c9414d9ed4d041fade73ca",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 350.01160867751321,
+        "X": 360.56717098785714,
         "Y": -2406.0609395032666
       },
       {
-        "ShowGeometry": true,
-        "Name": "Dictionary.ValueAtKey",
         "Id": "599ef5a4c40b4daea7a0a2595558043d",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Dictionary.ValueAtKey",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": 828.79702932679561,
         "Y": -2727.2174857663322
       },
       {
-        "ShowGeometry": true,
-        "Name": "Categories",
         "Id": "a8d4ab109ee948bfb952fe616ac941b6",
         "IsSetAsInput": true,
         "IsSetAsOutput": false,
+        "Name": "Categories",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": -938.92161454455186,
         "Y": -3237.5432887602228
       },
       {
-        "ShowGeometry": true,
-        "Name": "All Elements of Category",
         "Id": "cb906832c8d44ba8824435e94bf20ebe",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "All Elements of Category",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": -335.06445029757492,
         "Y": -3216.4929643826094
       },
       {
-        "ShowGeometry": true,
-        "Name": "Element.GetParameterValueByName",
         "Id": "d239247fb0b040e0a78f3e4fa247da4d",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Element.GetParameterValueByName",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": 273.0990652549666,
         "Y": -3228.7397026573617
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "6336afca25d541529c889910c812829c",
         "IsSetAsInput": true,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": -906.79869923577814,
         "Y": -2744.2847960950685
       },
       {
-        "ShowGeometry": true,
-        "Name": "Element.SetParameterByName",
         "Id": "768f6dc7478c49d487da9d77ccb841a0",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": false,
+        "Name": "Element.SetParameterByName",
+        "ShowGeometry": true,
+        "Excluded": true,
         "X": 976.51311569257314,
         "Y": -3183.1381725579395
       },
       {
-        "ShowGeometry": true,
-        "Name": "Changed elements",
         "Id": "9d0b3ea8904a44a7906c21530ca1f07e",
         "IsSetAsInput": false,
         "IsSetAsOutput": true,
+        "Name": "Changed elements",
+        "ShowGeometry": true,
         "Excluded": false,
         "X": 1308.2338511109497,
         "Y": -3178.1572359065617
+      },
+      {
+        "Id": "41a1b248a40a4d8caa1ff1cb4395a87c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Name": "Python Script",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 97.6728594066069,
+        "Y": -2398.6756681336838
       }
     ],
     "Annotations": [
@@ -917,22 +917,6 @@
         "Background": "#FFB9F9E1"
       },
       {
-        "Id": "4a409b2407a84998bfda72660e5d1d8e",
-        "Title": "Worksets Collector",
-        "Nodes": [
-          "9d9ed392cf474e74bbb01cbfff990649"
-        ],
-        "Left": 140.62539145199617,
-        "Top": -2504.8824483082221,
-        "Width": 152.09,
-        "Height": 200.0,
-        "FontSize": 36.0,
-        "InitialTop": -2408.8824483082221,
-        "InitialHeight": 145.0,
-        "TextblockHeight": 86.0,
-        "Background": "#FFBB87C6"
-      },
-      {
         "Id": "60dd75d480054c97bc39a8b3e207203d",
         "Title": "Workset Name ",
         "Nodes": [
@@ -960,7 +944,7 @@
         "Height": 241.0,
         "FontSize": 36.0,
         "InitialTop": -3183.1381725579395,
-        "InitialHeight": 175.0,
+        "InitialHeight": 145.0,
         "TextblockHeight": 86.0,
         "Background": "#FFB9F9E1"
       },
@@ -976,9 +960,25 @@
         "Height": 374.0,
         "FontSize": 36.0,
         "InitialTop": -3178.1572359065617,
-        "InitialHeight": 308.0,
+        "InitialHeight": 145.0,
         "TextblockHeight": 86.0,
         "Background": "#FFFFC999"
+      },
+      {
+        "Id": "cfafd27911744415ba10ad19ceb35e0d",
+        "Title": "Worksets Collector",
+        "Nodes": [
+          "41a1b248a40a4d8caa1ff1cb4395a87c"
+        ],
+        "Left": 87.6728594066069,
+        "Top": -2494.6756681336838,
+        "Width": 152.09,
+        "Height": 200.0,
+        "FontSize": 36.0,
+        "InitialTop": -2398.6756681336838,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 86.0,
+        "Background": "#FFBB87C6"
       },
       {
         "Id": "beeb0a5e585e4845bb5eee541ca7741f",
@@ -1065,8 +1065,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": -1354.1413396301796,
-    "Y": 5575.0344351429621,
-    "Zoom": 1.5512658782795117
+    "X": 31.970197717838346,
+    "Y": 3199.8584575198038,
+    "Zoom": 1.231578159247906
   }
 }
